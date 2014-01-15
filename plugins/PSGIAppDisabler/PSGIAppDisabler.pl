@@ -34,7 +34,7 @@ sub _post_init {
     no warnings;
     *MT::PSGI::application_list = sub {
 
-        # Do origiinal method.
+        # Do original method.
         my @raw_apps = $application_list->(@_);
 
         # EnableApps
