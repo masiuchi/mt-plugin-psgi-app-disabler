@@ -5,7 +5,7 @@ use base qw( MT::Plugin );
 
 my $plugin = __PACKAGE__->new(
     {   name    => 'PSGIAppDisabler',
-        version => 0.01,
+        version => 0.02,
 
         author_name => 'masiuchi',
         author_link => 'https://github.com/masiuchi',
