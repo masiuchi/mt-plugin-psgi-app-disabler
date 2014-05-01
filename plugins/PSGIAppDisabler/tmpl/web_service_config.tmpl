@@ -1,0 +1,25 @@
+<h2><__trans phrase="PSGI Applications"></h2>
+<mtapp:settinggroup id="psgi-application-settings">
+  <mt:if name="use_mt_config_cgi">
+<__trans phrase="Use the settings written in mt-config.cgi. You cannot chanage here.">
+  <mt:else>
+    <mtapp:setting
+      id="psgi-app-enable-settings"
+      label="<__trans phrase="Enabled Applications">">
+<ul class="fixed-width multiple-selection">
+      <mt:loop name="apps">
+  <li>
+    <input
+      type="checkbox"
+      id="cb-psgi-<mt:var name="name">"
+      name="psgi-<mt:var name="name">"
+      value="1"
+      <mt:if name="enabled">checked="checked"</mt:if> />
+    <label for="cb-psgi-<mt:var name="name">"><mt:var name="script"></label>
+  </li>
+      </mt:loop>
+</ul>
+    </mtapp:setting>
+  </mt:if>
+</mtapp:settinggroup>
+
