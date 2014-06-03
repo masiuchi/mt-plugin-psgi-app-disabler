@@ -10,7 +10,7 @@ my @ALL_APPS;
 
 my $plugin = __PACKAGE__->new(
     {   name    => 'PSGIAppDisabler',
-        version => 0.03,
+        version => 0.04,
 
         author_name => 'masiuchi',
         author_link => 'https://github.com/masiuchi',
