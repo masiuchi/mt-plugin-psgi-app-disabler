@@ -36,7 +36,10 @@ my $plugin = __PACKAGE__->new(
                 EnabledApps  => { default => undef },
                 DisabledApps => { default => undef },
             },
-            callbacks => { post_init => \&_post_init },
+            callbacks => {
+                post_init                  => \&_post_init,
+                set_notification_dashboard => \&_set_notification_dashboard,
+            },
         },
     }
 );
@@ -104,6 +107,8 @@ sub _save_config {
 }
 
 sub _post_init {
+    return unless $ENV{'psgi.input'};
+
     require MT::PSGI;
     my $application_list = \&MT::PSGI::application_list;
 
@@ -165,6 +170,21 @@ sub _get_enabled_apps_from_plugindata {
         }
     }
     return @enabled_apps;
+}
+
+sub _set_notification_dashboard {
+    my ( $cb, $messages ) = @_;
+
+    return if $ENV{'psgi.input'};
+
+    my %message = (
+        level  => 'warning',
+        text   => $plugin->translate('PSGIAppDisabler is disabled.'),
+        detail => $plugin->translate(
+            'This plugin is enabled on PSGI environment only.'),
+    );
+
+    push @$messages, \%message;
 }
 
 1;
