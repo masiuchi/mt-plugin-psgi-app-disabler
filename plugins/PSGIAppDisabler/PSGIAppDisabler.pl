@@ -107,9 +107,9 @@ sub _save_config {
 }
 
 sub _post_init {
-    return unless $ENV{'psgi.input'};
+    eval { require MT::PSGI; 1 };
+    return if $@;
 
-    require MT::PSGI;
     my $application_list = \&MT::PSGI::application_list;
 
     no warnings;
@@ -179,9 +179,9 @@ sub _set_notification_dashboard {
 
     my %message = (
         level  => 'warning',
-        text   => $plugin->translate('PSGIAppDisabler is disabled.'),
+        text   => $plugin->translate('PSGIAppDisabler is invalid.'),
         detail => $plugin->translate(
-            'This plugin is enabled on PSGI environment only.'),
+            'This plugin is valid on PSGI environment only.'),
     );
 
     push @$messages, \%message;
